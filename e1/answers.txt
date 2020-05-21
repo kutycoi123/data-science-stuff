@@ -1,0 +1,17 @@
+Question 1: Where you did the same calculations with NumPy and Pandas, which did you find easier to work with?
+	    Which code do you think is easier to read?
+- I did the same calculations for summing rows and columns of matrices,
+  the APIs of both NumPy and Pandas for these calculations are pretty much the same
+- For me, I think they are both easy to work with because their APIs for these simple calculations are mostly the same.
+  I personally find it easier to read numpy because for some matrices operations like add, multiplication,
+  division, etc numpy provides overloaded opeartors for matrix manipulation so I can simply use symbols like '+', '/', etc.
+  
+Question 2: What were the running times of the two pivot_months_* functions? How can you explain the difference?
+- For pivot_months_pandas: 80.5 ms ± 10.3 ms per loop (mean ± std. dev. of 7 runs, 10 loops each)
+- For pivot_months_loop: 900 ms ± 74.9 ms per loop (mean ± std. dev. of 7 runs, 1 loop each)
+- It's clear that doing pure loops is much slower than using built-in pandas APIs to handle computations.
+  It can also because of the different approach in two functions.
+     + In pivot_months_pandas, we used a much cleaner and shorter approach where we just added a columns,
+       did two groupby actions with sum and reshaped the table.
+     + While in pivot_months_loops, we had to extract unique months and names, sort them, then calculate totals and counts
+       by looping through all rows and construct the results based on the computations. 
