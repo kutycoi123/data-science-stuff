@@ -29,6 +29,7 @@ def main():
     plt.plot(df2['day1_views'].values, df2['views'].values, 'bo')
     plt.xscale('log')
     plt.yscale('log')
-    plt.show()
+    plt.savefig('wikipedia.png')
+#    plt.show()
 if __name__ == "__main__":
     main()
