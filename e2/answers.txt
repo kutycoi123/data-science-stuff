@@ -1,0 +1,13 @@
+1. In the hint above, what is the result of the calculation data['timestamp']*fit.slope + fit.intercept?
+   What is the type, and describe the values.
+   - The calculation is the predictions for dog ratings
+   - Type of result is a Panda Series. Values are ratings predictions for all timestamps that we retrieved from dog_rates_tweets.csv
+2. In the same hint, why does this produce a fit line on the graph?
+   Why are the created_at values and timestamp values paired correctly to make points on the plot?
+   - It produces a fit line on the graph because we used linear regression to compute "fit" based on df['timestamp'] and df['rates']
+   So all the values will lie on a line with linear equation: y = x.(fit.slope) + fit.intercept, where x can be replaced by any timestamp and y is the predicted rate
+   - created_at values and timestamp values paired correctly because all timestamp values are converted from created_at values.
+     The reason why we need to convert created_at values to timestamp values is because we used scipy.stats.linregress method to compute linear regression, which
+     only works with number. Timestamp values are numbers that represents number of seconds after some epoch. 
+     They essentially means the same but just in different format/unit. 
+   
