@@ -1,11 +1,10 @@
 import pandas as pd
 import numpy as np
 from xml.dom import minidom
-from math import cos, asin, sqrt, pi
+from pykalman import KalmanFilter
+from math import pi
+import matplotlib.pyplot as plt
 import sys
-
-
-    
     
 def output_gpx(points, output_filename):
     """
@@ -51,16 +50,31 @@ def distance(points):
 
     return np.sum(12742 * np.arcsin(np.sqrt(a))) * 1000
 
-
+def smooth(points):
+    kalman_data = points[['lat', 'lon']]
+    initial_state = kalman_data.iloc[0]
+    observation_covariance = np.diag([0.000013, 0.000013]) ** 2
+    transition_covariance = np.diag([ 0.000006,0.000006]) ** 2
+    transition_matrix = [[1,0],[0,1]]
+    kf = KalmanFilter(
+        initial_state_mean=initial_state,
+        initial_state_covariance=observation_covariance,
+        observation_covariance=observation_covariance,
+        transition_covariance=transition_covariance,
+        transition_matrices=transition_matrix
+        )
+    kalman_smoothed, _ = kf.smooth(kalman_data)
+    return pd.DataFrame(kalman_smoothed, columns=['lat', 'lon'])
+    
 
 def main():
     points = get_data(sys.argv[1])
 
     print('Unfiltered distance: %0.2f' % (distance(points),))
     
-#    smoothed_points = smooth(points)
-#    print('Filtered distance: %0.2f' % (distance(smoothed_points),))
-#    output_gpx(smoothed_points, 'out.gpx')
+    smoothed_points = smooth(points)
+    print('Filtered distance: %0.2f' % (distance(smoothed_points),))
+    output_gpx(smoothed_points, 'out.gpx')
 
 
 if __name__ == '__main__':

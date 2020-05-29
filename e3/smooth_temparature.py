@@ -20,8 +20,8 @@ def main():
 
     initial_state = kalman_data.iloc[0]
 
-    observation_covariance = np.diag([0.5,  2,   0.3    ,60]) ** 2
-    transition_covariance = np.diag( [0.01, 0.1, 0.03  ,7]) ** 2
+    observation_covariance = np.diag([0.6,  1,    0.3    ,60]) ** 2
+    transition_covariance = np.diag( [0.01, 0.01, 0.03  ,7]) ** 2
     transition_matrix = [[0.97,0.5,0.2,-0.001],[0.1,0.4,2.2,0],[0,0,0.95,0],[0,0,0,1]]
     kf = KalmanFilter(
         initial_state_mean=initial_state,
