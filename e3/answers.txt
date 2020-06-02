@@ -1,5 +1,6 @@
 1. When smoothing the CPU temperature, do you think you got a better result with LOESS or Kalman smoothing? What differences did you notice?
- - I believe I got a better result with LOESS smoothing.
+ - I believe I got a better result with LOESS smoothing. LOESS produced relatively good result
+   because I had quite a lot of "temperature" data. 
  - The difference is that the computation for LOESS smoothing only took two parameters which are "temperature" and "timestamp".
    While for Kalman smoothing, it involved 4 different parameters which are "temperature", "cpu_percent", "sys_load_1" and "fan_rpm".
    These data might also contain much noise so using them to predict "temperature" did not give me as good result as LOESS
