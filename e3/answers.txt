@@ -1,0 +1,14 @@
+1. When smoothing the CPU temperature, do you think you got a better result with LOESS or Kalman smoothing? What differences did you notice?
+ - I believe I got a better result with LOESS smoothing.
+ - The difference is that the computation for LOESS smoothing only took two parameters which are "temperature" and "timestamp".
+   While for Kalman smoothing, it involved 4 different parameters which are "temperature", "cpu_percent", "sys_load_1" and "fan_rpm".
+   These data might also contain much noise so using them to predict "temperature" did not give me as good result as LOESS
+   Using multiple parameters also made me spend quite a lot of time tunning different values to improve Kalman filtering.
+2. In the GPX files, you might have also noticed other data about the observations: time stamp, course (heading in degrees from north, 0–360), speed (in m/s). How could those have been used to make a better prediction about the “next” latitude and longitude?
+ - Those above data might be relevant to the "next" latitude and longtitude in the way that:
+     + Maybe the walker set a time interval to get to some specific place on the map, or he/she may change direction every some minutes
+     + "Course" data can be very useful to determine the next position because latitude and longtitude are two values relevant
+     with North/South/West/East. For example, if the "course" data shows that the walker is walking to the North, then we can predict
+     the latitude is increasing to the North Pole.
+     + Based on speed data, we know how fast the walker is walking, therefore we can approximately calculate the distance and
+     predict the next position. 
