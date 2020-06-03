@@ -1,0 +1,10 @@
+1. Based on your results for the last question, do you think daily temperatures are a good way to predict population density? \
+   Briefly explain why or why not.
+   - Naturally, it is harsh for humans to survive in cold area and it's also not an ideal environment for us to develop under such a low temperature.
+   Therefore, I think we can use daily temperature data to somehow predict population density because people seems to prefer living in
+   warm areas. If we look at the results we have for this assignment, there are more people living in cities with average temperature from 15 to 30 °C
+   than from cities with avg temperature from -5 to 10 °C. 
+2. The larger data file (stations.json.gz) was kept compressed on disk throughout the analysis.
+   Decompressing every time we run the program seems inefficient. Why might this be faster than working with an uncompressed .json data?
+   - Working wih decompressed json might be faster than with an uncompressed json file because decompressing json helps to remove unnecessary and duplicated
+   details, therefore, it results in smaller and lighter file. This is a good trade off for json compression and helps to speed up file I/O
