@@ -31,13 +31,15 @@ def process(movies, ratings):
     movies = movies.join(ratings.set_index('normalized_title'), on='normalized_title')
     movies = movies[movies.rating.notna()].drop(['normalized_title'], axis=1).sort_values(by=['title'])
     return movies, ratings
+
 def save(data, path):
     data.to_csv(path, index=False)
+    
 def main():
+    outFile = sys.argv[3]
     movies = extractMovies(sys.argv[1])
     ratings = extractRatings(sys.argv[2])
     movies_with_ratings, ratings = process(movies, ratings)
-    outFile = sys.argv[3]
     save(movies_with_ratings, outFile)
 if __name__ == "__main__":
     main()
