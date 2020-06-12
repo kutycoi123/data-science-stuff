@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 from scipy import stats
 import matplotlib.pyplot as plt
 import sys
@@ -38,15 +39,24 @@ def filter(df):
 def main():
     df  = pd.read_json(sys.argv[1], lines=True)
     reddit_df, weekends_df, weekdays_df = filter(df)
-    weekends_counts = weekends_df['comment_count']
-    weekdays_counts = weekdays_df['comment_count']
-    ttest = stats.ttest_ind(weekends_counts, weekdays_counts)
-    initial_ttest_p = ttest.pvalue
-    initial_weekday_normality_p = stats.normaltest(weekdays_counts).pvalue
-    initial_weekend_normality_p = stats.normaltest(weekends_counts).pvalue
-    initial_levene_p = stats.levene(weekdays_counts, weekends_counts).pvalue
+    weekend_counts = weekends_df['comment_count']
+    weekday_counts = weekdays_df['comment_count']
 
-    
+    # T-test, normality test and variance test
+    ttest = stats.ttest_ind(weekend_counts, weekday_counts)
+    initial_ttest_p = ttest.pvalue
+    initial_weekday_normality_p = stats.normaltest(weekday_counts).pvalue
+    initial_weekend_normality_p = stats.normaltest(weekend_counts).pvalue
+    initial_levene_p = stats.levene(weekday_counts, weekend_counts).pvalue
+
+    #Fix 1
+    transformed_weekday_counts = np.log(weekday_counts)
+    transformed_weekday_normality_p = stats.normaltest(transformed_weekday_counts).pvalue
+    transformed_weekend_counts = np.log(weekend_counts)
+    transformed_weekend_normality_p = stats.normaltest(transformed_weekend_counts).pvalue
+    transformed_levene_p = stats.levene(transformed_weekend_counts, transformed_weekday_counts).pvalue
+
+    #Fix 2
     
     # ...
     
@@ -55,9 +65,9 @@ def main():
         initial_weekday_normality_p=initial_weekday_normality_p,
         initial_weekend_normality_p=initial_weekend_normality_p,
         initial_levene_p=initial_levene_p,
-        transformed_weekday_normality_p=0,
-        transformed_weekend_normality_p=0,
-        transformed_levene_p=0,
+        transformed_weekday_normality_p=transformed_weekday_normality_p,
+        transformed_weekend_normality_p=transformed_weekend_normality_p,
+        transformed_levene_p=transformed_levene_p,
         weekly_weekday_normality_p=0,
         weekly_weekend_normality_p=0,
         weekly_levene_p=0,
