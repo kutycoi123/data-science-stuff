@@ -1,3 +1,6 @@
+import pandas as pd
+from scipy import stats
+import matplotlib.pyplot as plt
 import sys
 
 
@@ -14,16 +17,44 @@ OUTPUT_TEMPLATE = (
 )
 
 
+def isInCanSubred2012Or2013(row):
+    return row['date'].year in [2012, 2013] and row['subreddit'].lower() == 'canada'
+
+def isWeekend(row):
+    return row['date'].weekday() in [5,6]
+
+def isWeekday(row):
+    return not isWeekend(row)
+
+def filter(df):
+    filtered = df.apply(isInCanSubred2012Or2013, axis=1)
+    
+    reddit_df = df[filtered]
+    weekends_df = reddit_df[reddit_df.apply(isWeekend, axis=1)]
+    weekdays_df = reddit_df[reddit_df.apply(isWeekday, axis=1)]
+
+    return reddit_df, weekends_df, weekdays_df
+
 def main():
-    reddit_counts = sys.argv[1]
+    df  = pd.read_json(sys.argv[1], lines=True)
+    reddit_df, weekends_df, weekdays_df = filter(df)
+    weekends_counts = weekends_df['comment_count']
+    weekdays_counts = weekdays_df['comment_count']
+    ttest = stats.ttest_ind(weekends_counts, weekdays_counts)
+    initial_ttest_p = ttest.pvalue
+    initial_weekday_normality_p = stats.normaltest(weekdays_counts).pvalue
+    initial_weekend_normality_p = stats.normaltest(weekends_counts).pvalue
+    initial_levene_p = stats.levene(weekdays_counts, weekends_counts).pvalue
 
+    
+    
     # ...
-
+    
     print(OUTPUT_TEMPLATE.format(
-        initial_ttest_p=0,
-        initial_weekday_normality_p=0,
-        initial_weekend_normality_p=0,
-        initial_levene_p=0,
+        initial_ttest_p=initial_ttest_p,
+        initial_weekday_normality_p=initial_weekday_normality_p,
+        initial_weekend_normality_p=initial_weekend_normality_p,
+        initial_levene_p=initial_levene_p,
         transformed_weekday_normality_p=0,
         transformed_weekend_normality_p=0,
         transformed_levene_p=0,
