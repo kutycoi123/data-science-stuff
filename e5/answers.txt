@@ -1,0 +1,15 @@
+1. Which of the four transforms suggested got you the closest to satisfying the assumptions of a T-test?
+   - Using square root transform gave me the best results to satisfy
+   the assumptions of T-test
+2. The conclusion would be if null hypothesis is rejected is:
+   - Original T-test: The average number of comments posted on weekdays are different than on weekends
+   - Transformed data T-test: The average square root number of comments posted
+   on weekdays are different than on weekends
+   - By-week test: The average number of comments posted on weekdays are different than on weekends
+   for each week.
+   - Mann-Whitney test: It is likely that number of comments on weekdays is more than weekends or
+   vice versa, but it's not likely both are evenly shuffled.
+3. The Mann-Whitney U-test approach seems to do a better job since it helps us to reject the null hypothesis
+   and we can conclude that the data in both sets are not evenly shuffled, or one data set is likely to be
+   larger than the other.
+4. There are more number of comments posted on weekdays than on weekends

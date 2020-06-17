@@ -1,0 +1,99 @@
+==================================================
+Stats for file: data-1.csv
+==X==
+Standard deviation: 12.094586936598956
+Mean: 8.71769618641382
+Min: -22.635877790008944
+Max: 35.23705548785129
+==Y==
+Standard deviation: 6.606680770370137
+Mean: 12.522874034702584
+Min: -2.5650878326932127
+Max: 27.38415261152477
+Correlation coefficient:
+ [[1.        0.9503257]
+ [0.9503257 1.       ]]
+Description: X and Y are highly correlated and they are both in positive direction, which means
+	     when X increases, Y also increases and vice versa
+=================================================
+Stats for file: data-2.csv
+==X==
+Standard deviation: 11.424031427941332
+Mean: -0.7107871267159573
+Min: -33.2711130771198
+Max: 27.6470003722073
+==Y==
+Standard deviation: 6.226549791205469
+Mean: -0.7489869764497991
+Min: -18.621803760419066
+Max: 14.147314992317481
+Correlation coefficient:
+ [[1.         0.95515317]
+ [0.95515317 1.        ]]
+Description: X and Y are highly correlated in positive direction and both have quite the same mean but Y seems
+	     to be more central (values closer to the mean)
+=================================================
+Stats for file: data-3.csv
+==X==
+Standard deviation: 2.2318288211623565
+Mean: 0.9689074904200939
+Min: -2.4490643296742807
+Max: 4.51888491755363
+==Y==
+Standard deviation: 1.1473837107336813
+Mean: 8.508535236641327
+Min: 6.641734490391762
+Max: 10.551871022804317
+Correlation coefficient:
+ [[1.         0.98193726]
+ [0.98193726 1.        ]]
+Description: Again, X and Y are highly correlated in position direction and they have a totally different range of values
+=================================================
+Stats for file: data-4.csv
+==X==
+Standard deviation: 28.38755430203193
+Mean: 49.90508614830509
+Min: 0.0
+Max: 87.3767
+==Y==
+Standard deviation: 16.475637541936198
+Mean: 18.553836525423726
+Min: 0.0
+Max: 44.56504
+Correlation coefficient:
+ [[ 1.         -0.08119307]
+ [-0.08119307  1.        ]]
+Description: X and Y are negatively correlated, meaning that if X increases then Y decreases and vice versa
+==================================================
+Stats for file: data-5.csv
+==X==
+Standard deviation: 28.378981284825976
+Mean: 49.90999357843095
+Min: 4.337892453674525
+Max: 91.0528633396976
+==Y==
+Standard deviation: 16.470559057583237
+Mean: 18.555524937729086
+Min: 0.05549750758115175
+Max: 49.93419703633311
+Correlation coefficient:
+ [[ 1.         -0.08823599]
+ [-0.08823599  1.        ]]
+Description: X and Y are negatively correlated and Y has smaller range of value than X
+=================================================
+Stats for file: data-6.csv
+==X==
+Standard deviation: 11.861841302343016
+Mean: 7.21615517960992
+Min: -24.33382075234097
+Max: 35.402138910929
+==Y==
+Standard deviation: 11.70541274804915
+Mean: 7.602215028237295
+Min: -22.9563569970746
+Max: 36.07987403078143
+Correlation coefficient:
+ [[1.         0.93506857]
+ [0.93506857 1.        ]]
+Description: X and Y are positively correlated and they have quite similar values. 
+================================================
