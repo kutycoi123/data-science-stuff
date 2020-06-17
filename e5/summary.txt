@@ -13,8 +13,8 @@ Max: 27.38415261152477
 Correlation coefficient:
  [[1.        0.9503257]
  [0.9503257 1.       ]]
-Description: X and Y are highly correlated and they are both in positive direction, which means
-	     when X increases, Y also increases and vice versa
+Description: X and Y are quite linearly correlated
+
 =================================================
 Stats for file: data-2.csv
 ==X==
@@ -30,7 +30,7 @@ Max: 14.147314992317481
 Correlation coefficient:
  [[1.         0.95515317]
  [0.95515317 1.        ]]
-Description: X and Y are highly correlated in positive direction and both have quite the same mean but Y seems
+Description: X and Y are quire linearly correlated and both have quite the same mean but Y seems
 	     to be more central (values closer to the mean)
 =================================================
 Stats for file: data-3.csv
