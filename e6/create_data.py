@@ -4,8 +4,8 @@ import numpy as np
 import pandas as pd
 from implementations import all_implementations
 
-N_ARRAYS = 1000
-N_ELEM = 1000
+N_ARRAYS = 35
+N_ELEM = 12000
 MAX_ELEM = 100
 
 def gen_random_arrays():
@@ -30,6 +30,7 @@ def main():
             end = time.time()
             data[sort_names[idx]].append(end-start)
     data_df = pd.DataFrame(data)
-    print(data_df)
+    data_df.to_csv('data.csv', index=False)
+    
 if __name__ == "__main__":
     main()
