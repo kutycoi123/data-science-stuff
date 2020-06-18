@@ -44,8 +44,6 @@ def main():
     weekend_counts = weekends_df['comment_count']
     weekday_counts = weekdays_df['comment_count']
 
-    plt.hist(weekday_counts)
-    plt.show()
     # T-test, normality test and variance test
     ttest = stats.ttest_ind(weekend_counts, weekday_counts)
     initial_ttest_p = ttest.pvalue
@@ -67,7 +65,7 @@ def main():
     weekly_weekend_normality_p = stats.normaltest(weekly_weekend_counts).pvalue
     weekly_levene_p = stats.levene(weekly_weekday_counts, weekly_weekend_counts).pvalue
     weekly_ttest_p = stats.ttest_ind(weekly_weekday_counts, weekly_weekend_counts).pvalue
-    utest_p = stats.mannwhitneyu(weekday_counts, weekend_counts).pvalue
+    utest_p = stats.mannwhitneyu(weekday_counts, weekend_counts, alternative='two-sided').pvalue
     # ...
     
     print(OUTPUT_TEMPLATE.format(
@@ -84,6 +82,7 @@ def main():
         weekly_ttest_p=weekly_ttest_p,
         utest_p=utest_p,
     ))
+
 
 
 if __name__ == '__main__':

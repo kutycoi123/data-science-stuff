@@ -47,7 +47,7 @@ Max: 10.551871022804317
 Correlation coefficient:
  [[1.         0.98193726]
  [0.98193726 1.        ]]
-Description: Again, X and Y are highly correlated in position direction and they have a totally different range of values
+Description: There are some cluster of points which lie on a linear line
 =================================================
 Stats for file: data-4.csv
 ==X==
@@ -63,7 +63,7 @@ Max: 44.56504
 Correlation coefficient:
  [[ 1.         -0.08119307]
  [-0.08119307  1.        ]]
-Description: X and Y are negatively correlated, meaning that if X increases then Y decreases and vice versa
+Description: All the points together make something like SFU logo, with a square and letters "SFU" on the bottom right
 ==================================================
 Stats for file: data-5.csv
 ==X==
@@ -79,7 +79,7 @@ Max: 49.93419703633311
 Correlation coefficient:
  [[ 1.         -0.08823599]
  [-0.08823599  1.        ]]
-Description: X and Y are negatively correlated and Y has smaller range of value than X
+Description: Points lie on some vertical lines 
 =================================================
 Stats for file: data-6.csv
 ==X==
@@ -95,5 +95,5 @@ Max: 36.07987403078143
 Correlation coefficient:
  [[1.         0.93506857]
  [0.93506857 1.        ]]
-Description: X and Y are positively correlated and they have quite similar values. 
+Description: X and Y have quite the same values so the points seem to lie on identity line y = x
 ================================================
