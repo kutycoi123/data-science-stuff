@@ -5,7 +5,7 @@ import pandas as pd
 from implementations import all_implementations
 
 N_ARRAYS = 35
-N_ELEM = 12000
+N_ELEM = 13000
 MAX_ELEM = 100
 
 def gen_random_arrays():
