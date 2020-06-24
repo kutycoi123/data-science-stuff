@@ -1,6 +1,7 @@
 import sys
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
 from scipy import stats
 
 OUTPUT_TEMPLATE = (
@@ -13,13 +14,10 @@ OUTPUT_TEMPLATE = (
 def chi_square_test_users(users):
     odd_uid_users = users[users['odd_uid'] == True]
     even_uid_users = users[users['odd_uid'] == False]
-
-    odd_users_searched_atleast_once = odd_uid_users[odd_uid_users['search_count'] > 0].count()
-    odd_users_never_searched = odd_uid_users[odd_uid_users['search_count'] == 0].count()
-    
-    even_users_searched_atleast_once = even_uid_users[even_uid_users['search_count'] > 0].count()
-    even_users_never_searched = even_uid_users[even_uid_users['search_count'] == 0].count()
-    
+    odd_users_searched_atleast_once = len(odd_uid_users[odd_uid_users['search_count'] > 0].index)
+    odd_users_never_searched = len(odd_uid_users[odd_uid_users['search_count'] == 0].index)
+    even_users_searched_atleast_once = len(even_uid_users[even_uid_users['search_count'] > 0].index)
+    even_users_never_searched = len(even_uid_users[even_uid_users['search_count'] == 0].index)
     contingency = [[even_users_searched_atleast_once, even_users_never_searched],
                    [odd_users_searched_atleast_once, odd_users_never_searched]]
     chi2, p, dof, expected = stats.chi2_contingency(contingency)
@@ -29,37 +27,36 @@ def chi_square_test_instr(instr):
     odd_uid_instr = instr[instr['odd_uid'] == True]
     even_uid_instr = instr[instr['odd_uid'] == False]
 
-    odd_instr_searched_atleast_once = odd_uid_instr[odd_uid_instr['search_count'] > 0].count()
-    odd_instr_never_searched = odd_uid_instr[odd_uid_instr['search_count'] == 0].count()
+    odd_instr_searched_atleast_once = len(odd_uid_instr[odd_uid_instr['search_count'] > 0].index)
+    odd_instr_never_searched = len(odd_uid_instr[odd_uid_instr['search_count'] == 0].index)
 
-    even_instr_searched_atleast_once = even_uid_instr[even_uid_instr['search_count'] > 0].count()
-    even_instr_never_searched = even_uid_instr[even_uid_instr['search_count'] == 0].count()
+    even_instr_searched_atleast_once = len(even_uid_instr[even_uid_instr['search_count'] > 0].index)
+    even_instr_never_searched = len(even_uid_instr[even_uid_instr['search_count'] == 0].index)
 
     contingency = [[even_instr_searched_atleast_once, even_instr_never_searched],
                    [odd_instr_searched_atleast_once, odd_instr_never_searched]]
+
     chi2, p, dof, expected = stats.chi2_contingency(contingency)
     return p
 
 def u_test_users(users):
     odd_uid_users = users[users['odd_uid'] == True]
     even_uid_users = users[users['odd_uid'] == False]
-    return stats.mannwhitneyu(odd_uid_users['search_count'].values, even_uid_users['search_count'].values).pvalue
+    print(even_uid_users)
+    return stats.mannwhitneyu(even_uid_users['search_count'].values, odd_uid_users['search_count'].values).pvalue
 
 def u_test_instr(instr):
     odd_uid_instr = instr[instr['odd_uid'] == True]
     even_uid_instr = instr[instr['odd_uid'] == False]
-    return stats.mannwhitneyu(odd_uid_instr['search_count'].values, even_uid_instr['search_count'].values).pvalue
+    return stats.mannwhitneyu(even_uid_instr['search_count'].values, odd_uid_instr['search_count'].values).pvalue
 
 def main():
     searchdata_file = sys.argv[1]
     data = pd.read_json(searchdata_file, orient='records', lines=True)
     data['odd_uid'] = data['uid'].apply(lambda x: x % 2 != 0)
-    data = data.drop(['uid'], axis=1)
-    users = data[data['is_instructor'] == True].drop(['is_instructor'], axis=1)
-    instr = data[data['is_instructor'] == False].drop(['is_instructor'], axis=1)
-
-    more_users_p = chi_square_test_users(users)
-    more_searches_p = u_test_users(users)
+    instr = data[data['is_instructor'] == True]
+    more_users_p = chi_square_test_users(data)
+    more_searches_p = u_test_users(data)
     more_instr_p = chi_square_test_instr(instr)
     more_instr_searches_p = u_test_instr(instr)
     
