@@ -14,7 +14,10 @@ if __name__ == "__main__":
 
     data = pd.read_csv(data_file)
     melt = pd.melt(data)
+    anova = stats.f_oneway(data['qs1'], data['qs2'], data['qs3'], data['qs4'], data['qs5'], data['merge'], data['partition_sort'])
+    print("anova p-value:", anova.pvalue)
     posthoc = pairwise_tukeyhsd(melt['value'], melt['variable'], alpha=0.05)
+    print("post hoc analysis:")
     print(posthoc)
     print("qs1 mean:", data['qs1'].mean())
     print("qs2 mean:", data['qs2'].mean())
