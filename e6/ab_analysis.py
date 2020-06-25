@@ -42,13 +42,12 @@ def chi_square_test_instr(instr):
 def u_test_users(users):
     odd_uid_users = users[users['odd_uid'] == True]
     even_uid_users = users[users['odd_uid'] == False]
-    print(even_uid_users)
-    return stats.mannwhitneyu(even_uid_users['search_count'].values, odd_uid_users['search_count'].values).pvalue
+    return stats.mannwhitneyu(even_uid_users['search_count'].values, odd_uid_users['search_count'].values, alternative="two-sided").pvalue
 
 def u_test_instr(instr):
     odd_uid_instr = instr[instr['odd_uid'] == True]
     even_uid_instr = instr[instr['odd_uid'] == False]
-    return stats.mannwhitneyu(even_uid_instr['search_count'].values, odd_uid_instr['search_count'].values).pvalue
+    return stats.mannwhitneyu(even_uid_instr['search_count'].values, odd_uid_instr['search_count'].values, alternative="two-sided").pvalue
 
 def main():
     searchdata_file = sys.argv[1]
