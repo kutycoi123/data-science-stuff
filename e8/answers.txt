@@ -1,0 +1,8 @@
+1. - It seems to me that K-neareast-neighbors model did the best for the colour-prediction task.
+   - I think this is because the colours are seperated into regions or clusters and similar colours are close with each other so KNN does a great job on grouping similar colours together and produces good predictions based on that
+   - LAB or HSV colour space seems to work better than RGB because
+   they are more perceptually uniform and it makes more sense to use
+   LAB/HSV to represent the distance among different colours than RGB
+2. - I believe the model is making quite reasonable mistakes because those mistaken cities have quite the same weather feature such as Vancouver and Victoria, Quebec and Montreal, etc
+   - I think it might be better for prediction if we add some information about the season(or month) when the data is measured,
+   or maybe some geographical data. 

@@ -1,7 +1,14 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-from skimage.color import lab2rgb
+from skimage.color import lab2rgb, rgb2lab
+from sklearn.model_selection import train_test_split
+from sklearn.naive_bayes import GaussianNB
+from sklearn.preprocessing import FunctionTransformer
+from sklearn.pipeline import make_pipeline
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.neighbors import KNeighborsClassifier
+
 import sys
 
 
@@ -76,8 +83,34 @@ def main():
     X = data[['R', 'G', 'B']].values / 255
     y = data['Label'].values
 
+    X_train, X_valid, y_train, y_valid = train_test_split(X,y)
     # TODO: create some models
+    
+    # GaussianNB
+    def convertRGBtoLAB(X):
+        return rgb2lab((X*255).reshape(1,-1,3).astype('uint8')).reshape(-1,3)
+    
+    bayes_rgb_model = GaussianNB()
+    bayes_rgb_model.fit(X_train, y_train)
+    bayes_convert_model = make_pipeline(FunctionTransformer(convertRGBtoLAB),
+                                        GaussianNB())
+    bayes_convert_model.fit(X_train, y_train)
+    # K-neareast neighbours
+    knn_rgb_model = KNeighborsClassifier(n_neighbors=10)
+    knn_rgb_model.fit(X_train, y_train)
+    knn_convert_model = make_pipeline(FunctionTransformer(convertRGBtoLAB),
+                                      KNeighborsClassifier(n_neighbors=10))
+    knn_convert_model.fit(X_train, y_train)
 
+    # Random forest
+    rf_rgb_model = RandomForestClassifier(n_estimators=150, max_depth=15,
+                                          min_samples_leaf=10)
+    rf_rgb_model.fit(X_train, y_train)
+
+    rf_convert_model = make_pipeline(FunctionTransformer(convertRGBtoLAB),
+                                     RandomForestClassifier(n_estimators=150, max_depth=15,
+                                                            min_samples_leaf=10))
+    rf_convert_model.fit(X_train, y_train)
     # train each model and output image of predictions
     models = [bayes_rgb_model, bayes_convert_model, knn_rgb_model, knn_convert_model, rf_rgb_model, rf_convert_model]
     for i, m in enumerate(models):  # yes, you can leave this loop in if you want.
