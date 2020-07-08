@@ -1,0 +1,8 @@
+1. I think it's reasonable to look at the OLS p-value because
+   it makes sense that to me that the ratings were increasing over the time.
+   The reason can be that at first there were not many people noticing these dog-rates survey so people might just uploaded some of their normal images of dogs
+   However, more and more peolple soon realized that those dog images were so cute and adorable so they found it quite interesting to share more dog images and to give more votes.
+   People might even spend time trying to catch cute moment of their dogs so as to get high votes.
+   Therefore, the cuteness of dog images increased over the time, which led to the higher rates. 
+2. I think with this "better" prediction, Kalman filter does a better job capturing the true signal in the noise
+   because it manages to capture the sudden high temperature points, which are often smoothed out in previous assignment. 

@@ -18,7 +18,6 @@ def get_data(filename):
     
     # TODO: add the column that we want to predict: the temperatures from the *next* time step.
     sysinfo[y_column] = sysinfo['temperature'].shift(periods=-1) # should be the temperature value from the next row
-    print(sysinfo[:10])
     sysinfo = sysinfo[sysinfo[y_column].notnull()] # the last row should have y_column null: no next temp known
     return sysinfo
 
@@ -31,7 +30,7 @@ def get_trained_coefficients(X_train, y_train):
     """
     
     # TODO: create regression model and train.
-    model = LinearRegression().fit(X_train, y_train)
+    model = LinearRegression(fit_intercept=False).fit(X_train, y_train)
     coefficients = model.coef_
     return model, coefficients
 

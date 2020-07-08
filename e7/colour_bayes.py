@@ -1,7 +1,11 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-from skimage.color import lab2rgb
+from skimage.color import lab2rgb, rgb2lab
+from sklearn.model_selection import train_test_split
+from sklearn.naive_bayes import GaussianNB
+from sklearn.preprocessing import FunctionTransformer
+from sklearn.pipeline import make_pipeline
 import sys
 
 
@@ -39,7 +43,6 @@ def plot_predictions(model, lum=71, resolution=256):
 
     # convert to RGB for consistency with original input
     X_grid = lab2rgb(lab_grid)
-
     # predict and convert predictions to colours so we can see what's happening
     y_grid = model.predict(X_grid.reshape((wid*hei, 3)))
     pixels = np.stack(name_to_rgb(y_grid), axis=1) / 255
@@ -66,15 +69,27 @@ def plot_predictions(model, lum=71, resolution=256):
 
 def main(infile):
     data = pd.read_csv(infile)
-    X = data # array with shape (n, 3). Divide by 255 so components are all 0-1.
-    y = data # array with shape (n,) of colour words.
-
+    X = data[['R', 'G', 'B']].to_numpy() / 255 # array with shape (n, 3). Divide by 255 so components are all 0-1.
+    y = data[['Label']].to_numpy().flatten() # array with shape (n,) of colour words.
+    X_train, X_test, y_train, y_test = train_test_split(X, y)
     # TODO: build model_rgb to predict y from X.
+    model_rgb = GaussianNB()
+    model_rgb.fit(X_train, y_train)
     # TODO: print model_rgb's accuracy score
-
+    print(model_rgb.score(X_test, y_test))
+    
     # TODO: build model_lab to predict y from X by converting to LAB colour first.
+    def convertRGBtoLAB(X):
+        return rgb2lab((X*255).reshape(1,-1,3).astype('uint8')).reshape(-1,3)
+    
+    #X_LAB = rgb2lab(X.reshape(1,-1,3).astype('uint8')).reshape(-1,3)
+    X_lab_train, X_lab_test, y_lab_train, y_lab_test = train_test_split(X, y)
+    model_lab = make_pipeline(FunctionTransformer(convertRGBtoLAB),
+                              GaussianNB())
+    model_lab.fit(X_lab_train, y_lab_train)
     # TODO: print model_lab's accuracy score
-
+    print(model_lab.score(X_lab_test, y_lab_test))
+    
     plot_predictions(model_rgb)
     plt.savefig('predictions_rgb.png')
     plot_predictions(model_lab)
