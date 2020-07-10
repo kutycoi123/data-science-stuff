@@ -46,8 +46,9 @@ def main():
     X_predict = unlabelled.drop(['city'], axis=1)
     #print(knn_model.predict(X_predict))
     #print(rf_model.predict(X_predict))
-    print(svc_model.predict(X_predict))
-
+    #print(svc_model.predict(X_predict))
+    predictions = svc_model.predict(X_predict)
+    pd.Series(predictions).to_csv(sys.argv[3], index=False, header=False)
     #df = pd.DataFrame({'truth': y_valid,
     #                   'prediction': svc_model.predict(X_valid)})
     #print(df[df['truth'] != df['prediction']])
