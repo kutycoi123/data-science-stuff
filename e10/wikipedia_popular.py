@@ -29,10 +29,10 @@ def main(in_dir, out_dir):
     df = df.filter(df['language'] == 'en')
 
     max_df = df.groupBy('hour').agg(functions.max('count').alias('count'))
-    max_df.show()
+    #max_df.show()
     joined = max_df.join(df, ['hour', 'count'], 'inner')\
                    .orderBy(['hour', 'name'], ascending=True)\
-                   .drop('filename','language','bytes')
+                   .drop('filename','language','bytes').cache()
     joined.write.csv(out_dir,mode='overwrite')
     
 

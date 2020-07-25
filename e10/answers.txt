@@ -4,5 +4,9 @@
 (3): 22.592s
 (4): 20.080s
 2. Based on the above results, it looks like it takes spark most of the time to read the files
-3. I used .cache() once right on the line where I defined "averages" variable
-    averages = comments.groupBy('subreddit').agg(functions.avg('score')).cache()
+3. I used .cache() once right on the line where I defined "joined" variable
+    joined = max_df.join(df, ['hour', 'count'], 'inner')\
+                   .orderBy(['hour', 'name'], ascending=True)\
+                   .drop('filename','language','bytes').cache()
+
+	
