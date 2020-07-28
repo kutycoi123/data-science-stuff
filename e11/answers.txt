@@ -1,2 +1,7 @@
-application_1593055703595_1048 50s
-application_1593055703595_1044 1m29s
+1. 	I cached two intermediate joined results because they are used to create groupby data frames
+and to be written to the file
+	The performance would be quite slower if I did not use cache() anywhere
+2.	Broadcast helps to improve the program speed by nearly 60% because instead of doing join operation,
+it takes the advantage of the fact that one of joined dataframe is really small so it can quickly
+look up	the result. 
+

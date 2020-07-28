@@ -37,7 +37,7 @@ comments_schema = types.StructType([
 def main(in_directory, out_directory):
     comments = spark.read.json(in_directory, schema=comments_schema)
     #comments.show(10)
-    averages = comments.groupBy('subreddit').agg(functions.avg('score').alias('avg_score')).cache()
+    averages = comments.groupBy('subreddit').agg(functions.avg('score').alias('avg_score'))
     averages = averages.filter(averages.avg_score > 0)
     averages = functions.broadcast(averages)
     joined = comments.join(averages, ['subreddit'], 'inner').cache()
